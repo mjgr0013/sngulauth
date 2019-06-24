@@ -1,0 +1,34 @@
+{
+  "name": "sngular/sngulauth",
+  "type": "library",
+  "description": "Auth package against Keycloak for Saml and Openid-Connect",
+  "keywords": [
+    "sngular",
+    "auth",
+    "keycloak",
+    "saml",
+    "onelogin",
+    "connect"
+  ],
+  "homepage": "https://www.sngular.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Manuel Jesús García Ruiz",
+      "email": "mjgr0013@gmail.com",
+      "homepage": "http://seld.be",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Sngular\\Keycloak\\Manager\\": "src/"
+    }
+  },
+  "require": {
+    "stevenmaguire/oauth2-keycloak": "^2.1"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^4.3"
+  }
+}
