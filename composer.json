@@ -22,13 +22,22 @@
   ],
   "autoload": {
     "psr-4": {
-      "Sngular\\Keycloak\\Manager\\": "src/"
+      "Sngular\\Auth\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sngular\\Auth\\Test\\": "test/src/"
     }
   },
   "require": {
-    "stevenmaguire/oauth2-keycloak": "^2.1"
+    "onelogin/php-saml": "^3.1",
+    "league/oauth2-client": "^2.0 <2.3.0",
+    "firebase/php-jwt": "^4.0",
+    "symfony/console": "^4.3"
   },
   "require-dev": {
-    "symfony/var-dumper": "^4.3"
+    "symfony/var-dumper": "^4.3",
+    "phpunit/phpunit": "^7.5"
   }
 }
