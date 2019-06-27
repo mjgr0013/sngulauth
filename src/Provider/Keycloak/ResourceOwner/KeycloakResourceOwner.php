@@ -53,9 +53,8 @@ class KeycloakResourceOwner implements ResourceOwnerInterface
      * Creates new resource owner.
      *
      * @param array $response
-     * @param array $roles
      */
-    public function __construct(array $response, array $roles = [])
+    public function __construct(array $response)
     {
         $this->subject         = $response['sub'];
         $this->isEmailVerified = $response['email_verified'];

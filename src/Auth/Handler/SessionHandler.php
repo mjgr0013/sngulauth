@@ -6,6 +6,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use Sngular\Auth\Provider\Keycloak\ResourceOwner\KeycloakResourceOwner;
 
 /**
+ * This class manage the user session, validate token and check user roles
  * Class SessionHandler
  * @package Sngular\Auth\Auth\Handler
  */

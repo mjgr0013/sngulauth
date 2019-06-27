@@ -15,15 +15,16 @@ use Sngular\Auth\Provider\Keycloak\Exception\EncryptionConfigurationException;
 use Sngular\Auth\Provider\Keycloak\ResourceOwner\KeycloakResourceOwner;
 
 /**
+ * This manage the keycloak configuration
  * Class Connect
  * @package Sngular\Auth\Provider\Keycloak\Protocol
  */
 class Connect extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     const AUTHORIZATION_CODE = 'authorization_code';
     const REFRESH_TOKEN = 'refresh_token';
-
-    use BearerAuthorizationTrait;
 
     /**
      * Keycloak URL, eg. http://localhost:8080/auth.
@@ -56,6 +57,16 @@ class Connect extends AbstractProvider
      * @var string
      */
     public $encryptionKey = null;
+
+    /**
+     * Connect constructor.
+     * @param array $options
+     * @param array $collaborators
+     */
+    public function __construct(array $options = [], array $collaborators = [])
+    {
+        parent::__construct($options, $collaborators);
+    }
 
     /**
      * Returns the base URL for authorizing a client.
@@ -230,6 +241,7 @@ class Connect extends AbstractProvider
 
     /**
      * TODO: http://docs.identityserver.io/en/latest/endpoints/introspection.html
+     * @param $token
      */
     public function introspectCode($token)
     {
