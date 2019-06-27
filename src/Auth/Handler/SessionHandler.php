@@ -5,6 +5,10 @@ namespace Sngular\Auth\Auth\Handler;
 use League\OAuth2\Client\Token\AccessToken;
 use Sngular\Auth\Provider\Keycloak\ResourceOwner\KeycloakResourceOwner;
 
+/**
+ * Class SessionHandler
+ * @package Sngular\Auth\Auth\Handler
+ */
 class SessionHandler
 {
     const KEY_NAME = 'sngulauth';
@@ -28,7 +32,8 @@ class SessionHandler
         if (!isset($_SESSION[self::KEY_NAME])) {
             return;
         }
-        $this->token = new AccessToken(json_decode($_SESSION[self::KEY_NAME]['token'], true));
+
+        $this->token         = new AccessToken(json_decode($_SESSION[self::KEY_NAME]['token'], true));
         $this->resourceOwner = new KeycloakResourceOwner(json_decode($_SESSION[self::KEY_NAME]['userData'], true));
     }
 
@@ -38,8 +43,8 @@ class SessionHandler
      */
     public static function persistSessionData(AccessToken $accessToken, array $userData)
     {
-        $_SESSION[self::KEY_NAME]['token']      = json_encode($accessToken);
-        $_SESSION[self::KEY_NAME]['userData']   = json_encode($userData);
+        $_SESSION[self::KEY_NAME]['token']    = json_encode($accessToken);
+        $_SESSION[self::KEY_NAME]['userData'] = json_encode($userData);
     }
 
     /**

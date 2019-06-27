@@ -5,7 +5,6 @@ namespace Sngular\Auth\Provider\Keycloak\Protocol;
 
 use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
-use http\Client\Request;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -15,10 +14,14 @@ use Psr\Http\Message\ResponseInterface;
 use Sngular\Auth\Provider\Keycloak\Exception\EncryptionConfigurationException;
 use Sngular\Auth\Provider\Keycloak\ResourceOwner\KeycloakResourceOwner;
 
+/**
+ * Class Connect
+ * @package Sngular\Auth\Provider\Keycloak\Protocol
+ */
 class Connect extends AbstractProvider
 {
-    const AUTHORIZATION_CODE    = 'authorization_code';
-    const REFRESH_TOKEN         = 'refresh_token';
+    const AUTHORIZATION_CODE = 'authorization_code';
+    const REFRESH_TOKEN = 'refresh_token';
 
     use BearerAuthorizationTrait;
 
@@ -63,7 +66,7 @@ class Connect extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return $this->getIdentityProviderBaseUrl().'/protocol/openid-connect/auth';
+        return $this->getIdentityProviderBaseUrl() . '/protocol/openid-connect/auth';
     }
 
     /**
@@ -76,7 +79,7 @@ class Connect extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->getIdentityProviderBaseUrl().'/protocol/openid-connect/token';
+        return $this->getIdentityProviderBaseUrl() . '/protocol/openid-connect/token';
     }
 
     /**
@@ -87,7 +90,7 @@ class Connect extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return $this->getIdentityProviderBaseUrl().'/protocol/openid-connect/userinfo';
+        return $this->getIdentityProviderBaseUrl() . '/protocol/openid-connect/userinfo';
     }
 
     /**
@@ -97,7 +100,7 @@ class Connect extends AbstractProvider
      */
     protected function getIdentityProviderBaseUrl()
     {
-        return $this->authServerUrl.'/realms/'.$this->realm;
+        return $this->authServerUrl . '/realms/' . $this->realm;
     }
 
     /**
@@ -124,7 +127,7 @@ class Connect extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data)
     {
         if (!empty($data['error'])) {
-            $error = $data['error'].': '.$data['error_description'];
+            $error = $data['error'] . ': ' . $data['error_description'];
             throw new IdentityProviderException($error, 0, $data);
         }
     }
@@ -200,7 +203,7 @@ class Connect extends AbstractProvider
      */
     public function usesEncryption()
     {
-        return (bool) $this->encryptionAlgorithm && $this->encryptionKey;
+        return (bool)$this->encryptionAlgorithm && $this->encryptionKey;
     }
 
     /**
@@ -244,7 +247,6 @@ class Connect extends AbstractProvider
                 ]
             ]
         );
-
 
 
         dump($response->getBody()->getContents());

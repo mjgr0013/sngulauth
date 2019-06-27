@@ -3,10 +3,7 @@
 
 namespace Sngular\Auth\Provider\Keycloak\ResourceOwner;
 
-
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
-use phpDocumentor\Reflection\Types\Self_;
-use phpDocumentor\Reflection\Types\This;
 
 /**
  * All those data are fetched from Oauth2 response, see https://tools.ietf.org/html/rfc7662 for some references
@@ -67,7 +64,7 @@ class KeycloakResourceOwner implements ResourceOwnerInterface
         $this->email           = $response['email'];
         $this->name            = $response['given_name'];
 
-        $this->roles           = array_merge($response['realm_access']['roles'], $response['resource_access']['account']['roles']);
+        $this->roles = array_merge($response['realm_access']['roles'], $response['resource_access']['account']['roles']);
     }
 
     /**
@@ -81,7 +78,7 @@ class KeycloakResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getisEmailVerified()
+    public function isEmailVerified()
     {
         return $this->isEmailVerified;
     }

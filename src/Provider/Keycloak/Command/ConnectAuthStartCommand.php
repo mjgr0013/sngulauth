@@ -13,7 +13,7 @@ class ConnectAuthStartCommand extends Command
     /**
      * @var string
      */
-    private $resourcesDir = __DIR__ . '/../Resources/config';
+    private $resourcesDir;
 
     /**
      * @var string
@@ -22,10 +22,11 @@ class ConnectAuthStartCommand extends Command
 
     protected function configure()
     {
+        $this->resourcesDir = getcwd() . '/config';
+
         $this
             ->setDescription('Start the Connect configuration.')
-            ->setHelp('This command build the necessary configuration for Keycloak - Connect')
-        ;
+            ->setHelp('This command build the necessary configuration for Keycloak - Connect');
     }
 
     /**
@@ -104,7 +105,7 @@ class ConnectAuthStartCommand extends Command
     protected function exportConfigToFIle(array $config)
     {
         $var_str = $this->varexport($config, true);
-        $var = "<?php\n\n\$config = $var_str;";
+        $var     = "<?php\n\n\$config = $var_str;";
         return file_put_contents($this->resourcesDir . "/connect_config.php", $var);
     }
 
@@ -115,11 +116,12 @@ class ConnectAuthStartCommand extends Command
      * @param bool $return
      * @return mixed|string|string[]|null
      */
-    protected function varexport($expression, $return=FALSE) {
+    protected function varexport($expression, $return = FALSE)
+    {
         $export = var_export($expression, TRUE);
         $export = preg_replace("/^([ ]*)(.*)/m", '$1$1$2', $export);
-        $array = preg_split("/\r\n|\n|\r/", $export);
-        $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [NULL, ']$1', ' => ['], $array);
+        $array  = preg_split("/\r\n|\n|\r/", $export);
+        $array  = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [NULL, ']$1', ' => ['], $array);
         $export = join(PHP_EOL, array_filter(["["] + $array));
 
         if ((bool)$return)

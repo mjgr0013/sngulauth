@@ -2,9 +2,9 @@
 
 session_start();
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
-require_once 'src/Provider/Keycloak/Resources/config/filename.php';
+require_once getcwd() . '/config/filename.php';
 
 use Sngular\Auth\Provider\Keycloak\Protocol\Connect;
 use Sngular\Auth\Auth\Handler\SessionHandler;
@@ -12,8 +12,13 @@ use Sngular\Auth\Auth\Handler\SessionHandler;
 $auth = new Connect($config);
 $sessionHandler = new SessionHandler();
 
-$authUrl = $auth->getAuthorizationUrl();
-echo "<p><a href='{$authUrl}' >Login</a></p>";
+if (!$sessionHandler->isAuthenticated()) {
+    $authUrl = $auth->getAuthorizationUrl();
+    echo "<p><a href='{$authUrl}' >Login</a></p>";
+} else {
+    echo "<p>You are authenticated</p>";
+    echo "<p><a href='logout.php' > Logout</a></p>";
+}
 
 
 if (!isset($_GET['code'])) {
@@ -23,7 +28,6 @@ if (!isset($_GET['code'])) {
 // Check given state against previously stored one to mitigate CSRF attack
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
     unset($_SESSION['oauth2state']);
-    exit('Invalid state, make sure HTTP sessions are enabled.');
 } else {
     // Try to get an access token (using the authorization coe grant)
     try {
@@ -49,6 +53,6 @@ if (!isset($_GET['code'])) {
 
     SessionHandler::persistSessionData($token, $userData);
 
-    header('Location: http://localhost:8080/auth_resource.php');
+    header('Location: http://localhost:8080/secure_resource.php');
     exit;
 }
