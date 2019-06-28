@@ -43,13 +43,20 @@ if (!isset($_GET['code'])) {
 
     // Optional: Now you have a token you can look up a users profile data
     try {
+        // User data against keycloak
         $user = $auth->getResourceOwner($token);
 
     } catch (Exception $e) {
         exit('Failed to get resource owner: ' . $e->getMessage());
     }
 
+    // User data from JWT
     $userData = $auth->decryptResponse($token->getToken());
+
+    /* Uncomment those lines in order to see the user data   */
+    //dump($user, $userData);
+    //die();
+    /* ----------------------------------------------------- */
 
     SessionHandler::persistSessionData($token, $userData);
 
