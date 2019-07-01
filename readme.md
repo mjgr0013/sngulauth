@@ -4,7 +4,7 @@
 - **authServerUrl**: keycloak auth url
 - **realm**: realm name that has been set up for the project
 - **clientId**: client id name that has been set up for the project
-- **clientSecret**: client id name that has been set up for the project
+- **clientSecret**: client secret name that has been set up for the project
 - **redirectUri**: the redirect url to be redirected after successful credentials prompt (this url must be valid on keycloak client configuration)
 - **encryptionAlgorithm**: algorithm to decode the JWT information, default is RS256
 - **encryptionKey**: the public key content (without begin header and end footer, this is being added automatically by the package) to decrypt the JWT.
